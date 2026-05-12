@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extended Hands Pantry — UX Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --navy-mid: #243156;
+    --green: #3a9e6e;
+    --green-light: #e8f5ee;
+    --green-mid: #c2e8d3;
+    --accent: #5b8dee;
+    --sand: #f7f5f0;
+    --text: #1a2744;
+    --text-muted: #6b7a99;
+    --text-light: #9aa3b8;
+    --border: #e2e6ef;
+    --white: #ffffff;
+    --tag-bg: #eef1fa;
+    --tag-text: #3a4a7a;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    color: white;
+    padding: 100px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: rgba(91,141,238,0.08);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 8%;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(58,158,110,0.10);
+  }
+
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    border: 1px solid rgba(58,158,110,0.4);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.15;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: #a8c4ff;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    font-weight: 500;
+  }
+
+  .meta-value {
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 5%;
+  }
+
+  .section {
+    padding: 80px 5%;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .section-label span {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--text-muted);
+  }
+
+  .section > h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section > p, .section-inner > p {
+    font-size: 1rem;
+    color: #3a4560;
+    line-height: 1.8;
+    max-width: 680px;
+    margin: 0 auto 20px;
+  }
+
+  .section-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── OVERVIEW STATS ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 40px auto;
+    max-width: 860px;
+  }
+
+  .stat-cell {
+    background: white;
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── PROBLEM CARDS ── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    max-width: 860px;
+    margin: 36px auto 0;
+  }
+
+  .problem-card {
+    background: var(--sand);
+    border-radius: 12px;
+    padding: 24px;
+    border-left: 3px solid var(--navy);
+  }
+
+  .problem-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .problem-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0 !important;
+  }
+
+  .hmw {
+    background: var(--navy);
+    color: white;
+    border-radius: 12px;
+    padding: 32px 36px;
+    max-width: 680px;
+    margin: 36px auto 0;
+    position: relative;
+  }
+
+  .hmw::before {
+    content: '"';
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: rgba(255,255,255,0.12);
+    position: absolute;
+    top: -10px; left: 20px;
+    line-height: 1;
+  }
+
+  .hmw p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9) !important;
+    margin: 0 !important;
+  }
+
+  /* ── RESEARCH ── */
+  .insight-list {
+    list-style: none;
+    max-width: 680px;
+    margin: 28px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .insight-list li {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 18px 20px;
+    background: var(--sand);
+    border-radius: 10px;
+  }
+
+  .insight-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .insight-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .insight-text span {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── PERSONA ── */
+  .persona-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    max-width: 860px;
+    margin: 36px auto 0;
+  }
+
+  .persona-left {
+    background: var(--navy);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .persona-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: white;
+  }
+
+  .persona-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .persona-role {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  .persona-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .persona-tag {
+    font-size: 11px;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.8);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .persona-right {
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-content: start;
+  }
+
+  .persona-section h5 {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .persona-section ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .persona-section ul li {
+    font-size: 13px;
+    color: #3a4560;
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .persona-section ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-size: 18px;
+    line-height: 1.1;
+  }
+
+  .persona-quote {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--navy);
+    line-height: 1.6;
+  }
+
+  /* ── AFFINITY THEMES ── */
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    max-width: 860px;
+    margin: 32px auto 0;
+  }
+
+  .theme-card {
+    border-radius: 10px;
+    padding: 20px 18px;
+  }
+
+  .theme-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .theme-card p {
+    font-size: 12px;
+    line-height: 1.55;
+    margin: 0 !important;
+    opacity: 0.8;
+  }
+
+  .theme-pink { background: #fde8f0; color: #7a1a42; }
+  .theme-blue { background: #e6effe; color: #1a3a7a; }
+  .theme-purple { background: #ede8fe; color: #4a1a7a; }
+  .theme-orange { background: #fdf0e6; color: #7a3a0d; }
+  .theme-teal { background: #e6f7f2; color: #0d5a3a; }
+  .theme-yellow { background: #fef9e6; color: #7a5a0d; }
+
+  /* ── PROCESS STEPS ── */
+  .process-bar {
+    display: flex;
+    align-items: center;
+    max-width: 680px;
+    margin: 36px auto 0;
+    gap: 0;
+  }
+
+  .process-step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+
+  .process-step::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: -1px;
+    width: calc(100% - 36px - 8px);
+    height: 1px;
+    background: var(--border);
+    left: calc(18px + 8px);
+  }
+
+  .process-step:last-child::after { display: none; }
+
+  .step-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── WIREFRAME SECTIONS ── */
+  .wireframe-note {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 18px 20px;
+    max-width: 680px;
+    margin: 24px auto;
+    font-size: 14px;
+    color: #1a4a32;
+    line-height: 1.6;
+  }
+
+  .iteration-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 860px;
+    margin: 32px auto;
+  }
+
+  .before-after {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .ba-label {
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ba-before .ba-label { background: #fef0f0; color: #a33030; }
+  .ba-after .ba-label { background: var(--green-light); color: #1a4a32; }
+
+  .ba-content {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #3a4560;
+    line-height: 1.65;
+    background: white;
+  }
+
+  /* ── USABILITY RESULTS ── */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    max-width: 860px;
+    margin: 32px auto;
+  }
+
+  .result-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .result-big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .result-big.good { color: var(--green); }
+  .result-big.warn { color: #e08a20; }
+  .result-big.ok { color: var(--accent); }
+
+  .result-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── FINDINGS LIST ── */
+  .findings-list {
+    max-width: 680px;
+    margin: 28px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+  }
+
+  .finding-item {
+    display: flex;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .finding-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+
+  .fi-high { background: #fde8e8; color: #a33030; }
+  .fi-mid { background: #fdf0e0; color: #9a5a0d; }
+  .fi-low { background: var(--green-light); color: #1a4a32; }
+
+  .finding-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+
+  .finding-text span {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* ── ITERATIONS ── */
+  .iteration-list {
+    max-width: 680px;
+    margin: 28px auto 0;
+    counter-reset: iter;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .iter-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .iter-item:last-child { border-bottom: none; }
+
+  .iter-num {
+    counter-increment: iter;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--tag-bg);
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .iter-content strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 5px;
+  }
+
+  .iter-content p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0 !important;
+  }
+
+  /* ── QUOTE ── */
+  .reflection-quote {
+    max-width: 640px;
+    margin: 32px auto;
+    border-left: 3px solid var(--green);
+    padding: 20px 28px;
+  }
+
+  .reflection-quote p {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--navy);
+    line-height: 1.7;
+    margin: 0 !important;
+  }
+
+  .reflection-quote cite {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    color: var(--text-muted);
+    margin-top: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── LEARNINGS ── */
+  .learnings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    max-width: 860px;
+    margin: 32px auto 0;
+  }
+
+  .learning-card {
+    background: var(--sand);
+    border-radius: 12px;
+    padding: 22px 20px;
+  }
+
+  .learning-icon {
+    font-size: 20px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .learning-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .learning-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0 !important;
+  }
+
+  /* ── TOOLS ── */
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 680px;
+    margin: 28px auto 0;
+    justify-content: center;
+  }
+
+  .tool-pill {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid #d0d8f0;
+  }
+
+  /* ── FOOTER ── */
+  .footer-cta {
+    background: var(--navy);
+    padding: 80px 5%;
+    text-align: center;
+    color: white;
+  }
+
+  .footer-cta h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: white;
+  }
+
+  .footer-cta p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 420px;
+    margin: 0 auto 32px;
+    font-weight: 300;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 13px 32px;
+    background: var(--green);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+  }
+
+  .cta-btn:hover { opacity: 0.88; }
+
+  /* ── IMAGE CONTAINER ── */
+  .img-wrapper {
+    max-width: 860px;
+    margin: 32px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .img-wrapper img {
+    width: 100%;
+    display: block;
+  }
+
+  .img-caption {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 10px 20px 12px;
+    background: var(--sand);
+  }
+
+  .divider {
+    max-width: 40px;
+    height: 2px;
+    background: var(--green);
+    margin: 0 auto 32px;
+    border: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .persona-card { grid-template-columns: 1fr; }
+    .persona-left { padding: 28px 20px; }
+    .persona-right { grid-template-columns: 1fr; }
+    .iteration-compare { grid-template-columns: 1fr; }
+    .process-bar { gap: 4px; }
+    .process-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">UX/UI Case Study · 2025</div>
+    <h1>Extended Hands Pantry<br><em>Responsive Donation Redesign</em></h1>
+    <p class="hero-sub">Redesigning a nonprofit's public-facing donation experience to build donor trust, simplify giving, and communicate real community impact.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Solo UX/UI Designer</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Duration</span>
+        <span class="meta-value">3 Weeks · June 2025</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Tools</span>
+        <span class="meta-value">Figma · Otter.ai</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Type</span>
+        <span class="meta-value">Responsive Web · Mobile</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROJECT OVERVIEW -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>Overview</span></div>
+    <h2>A food pantry website that left donors feeling disconnected</h2>
+    <p>Extended Hands Pantry serves families in need across the greater Madison area. While the organization does meaningful work, their website wasn't reflecting it — the donation experience was fragmented, the impact of contributions was invisible, and donors had little reason to return after giving.</p>
+    <p>My goal was to redesign the donor-facing web experience: simplifying the giving process, surfacing transparent impact data, and creating emotional connection between donors and the families they support — all while ensuring the design worked seamlessly on both desktop and mobile.</p>
+
+    <div class="overview-grid">
+      <div class="stat-cell">
+        <div class="stat-number">92%</div>
+        <div class="stat-desc">task completion rate in hi-fi usability testing</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">100%</div>
+        <div class="stat-desc">of users completed the donation task within the time limit</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">5</div>
+        <div class="stat-desc">user research interviews conducted</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">2</div>
+        <div class="stat-desc">rounds of usability testing (lo-fi + hi-fi)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>Problem</span></div>
+    <h2>Three compounding gaps in the donor experience</h2>
+    <p>Through early scoping and research, three distinct but connected problems emerged — each chipping away at a donor's motivation to give and their sense of belonging to the mission.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <h4>Unclear donation impact</h4>
+        <p>The website offered no storytelling or transparency about how contributions help real families — leaving donors unsure their money mattered.</p>
+      </div>
+      <div class="problem-card">
+        <h4>Complicated giving process</h4>
+        <p>The donation flow was confusing and slow, creating friction that caused potential donors to abandon before completing their contribution.</p>
+      </div>
+      <div class="problem-card">
+        <h4>No ongoing connection</h4>
+        <p>After donating, users felt no relationship with the organization — no follow-up, no impact updates, no sense of community belonging.</p>
+      </div>
+    </div>
+
+    <div class="hmw">
+      <p>How might we design a donation experience that is fast and frictionless, communicates real impact, and keeps donors feeling connected to the mission long after they give?</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" style="background: var(--sand);">
+  <div class="section-inner">
+    <div class="section-label"><span>Process</span></div>
+    <h2>A complete, research-grounded design process</h2>
+    <p>Over three weeks, I moved through a full UX cycle — from in-person interviews with pantry users to two rounds of usability testing, with iteration at every stage.</p>
+
+    <div class="process-bar">
+      <div class="process-step">
+        <div class="step-dot">1</div>
+        <div class="step-label">Research<br>& Interviews</div>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">2</div>
+        <div class="step-label">Synthesis<br>& Persona</div>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">3</div>
+        <div class="step-label">Lo-Fi<br>Wireframes</div>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">4</div>
+        <div class="step-label">Testing<br>& Iteration</div>
+      </div>
+      <div class="process-step">
+        <div class="step-dot">5</div>
+        <div class="step-label">Hi-Fi<br>Prototype</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>Research</span></div>
+    <h2>Listening to the people closest to the pantry</h2>
+    <p>I conducted 5 in-person and phone interviews (20–30 min each) with pantry users and occasional volunteers between June 10–15, 2025. Sessions were recorded with permission and transcribed via Otter.ai. Participants varied widely in age, tech access, and relationship to the organization.</p>
+
+    <ul class="insight-list">
+      <li>
+        <div class="insight-num">1</div>
+        <div class="insight-text">
+          <strong>Inconsistent communication is the core pain point</strong>
+          <span>Users don't know when the pantry is open, especially during holidays or weather events. One participant walked 20 minutes only to find it closed.</span>
+        </div>
+      </li>
+      <li>
+        <div class="insight-num">2</div>
+        <div class="insight-text">
+          <strong>No central source of truth for services</strong>
+          <span>People cobble information together from friends, outdated flyers, and an inconsistently-updated Google listing. Said one user: "I always ask the same volunteer what's coming next week. If she's not there, I just guess."</span>
+        </div>
+      </li>
+      <li>
+        <div class="insight-num">3</div>
+        <div class="insight-text">
+          <strong>Wide range in tech access and comfort</strong>
+          <span>Participants ranged from smartphone-first users to a 56-year-old with no phone at all. One participant uses a basic flip phone — texts only. Any solution needs a multi-channel approach.</span>
+        </div>
+      </li>
+      <li>
+        <div class="insight-num">4</div>
+        <div class="insight-text">
+          <strong>Volunteering interest exists, but the path is unclear</strong>
+          <span>Multiple users expressed a desire to volunteer but didn't know how to sign up. The process requires calling or asking in person. "It'd be great if there was just a site where I could tap 'yes, I'm in' for next Saturday."</span>
+        </div>
+      </li>
+      <li>
+        <div class="insight-num">5</div>
+        <div class="insight-text">
+          <strong>Users prefer updates that fit into their daily lives</strong>
+          <span>SMS reminders were the most universally preferred communication method. Website presence and Google listing are helpful, but only if kept current.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- AFFINITY MAP -->
+<section class="section" style="background: var(--sand);">
+  <div class="section-inner">
+    <div class="section-label"><span>Synthesis</span></div>
+    <h2>Six themes from affinity mapping</h2>
+    <p>After interviews, I organized all observations into an affinity map, clustering notes across 5 participants into 6 meaningful insight themes.</p>
+
+    <div class="theme-grid">
+      <div class="theme-card theme-pink">
+        <h4>Communication Preferences & Gaps</h4>
+        <p>Users rely on incompatible channels — SMS, flyers, Google, word-of-mouth — with no unified source.</p>
+      </div>
+      <div class="theme-card theme-blue">
+        <h4>Pantry Hours & Access Confusion</h4>
+        <p>Unclear hours and unexpected closures cause wasted trips and erode trust in the organization.</p>
+      </div>
+      <div class="theme-card theme-purple">
+        <h4>Food Availability & Clarity</h4>
+        <p>Users want to know what's available before visiting, especially fresh produce and specialty items.</p>
+      </div>
+      <div class="theme-card theme-orange">
+        <h4>Volunteer Experience & Friction</h4>
+        <p>Interest in volunteering is high, but the sign-up process is opaque, discouraging first-time helpers.</p>
+      </div>
+      <div class="theme-card theme-teal">
+        <h4>Cognitive Load / Simplicity Needs</h4>
+        <p>Several users — particularly older participants — prefer fewer words, more visuals, and clear hierarchy.</p>
+      </div>
+      <div class="theme-card theme-yellow">
+        <h4>Tech Access & Barriers</h4>
+        <p>A significant portion of users lack smartphones or reliable internet, requiring offline-compatible solutions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONA -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>Persona</span></div>
+    <h2>Designing for Maria Thompson</h2>
+    <p>Research insights coalesced into a primary persona — a busy, community-oriented donor who wants to give quickly, trust that her money is making a difference, and feel like more than a transaction number.</p>
+
+    <div class="persona-card">
+      <div class="persona-left">
+        <div class="persona-avatar">MT</div>
+        <div class="persona-name">Maria Thompson</div>
+        <div class="persona-role">38 · Fitchburg, WI<br>Part-time retail · Single</div>
+        <div class="persona-tags">
+          <span class="persona-tag">Responsible</span>
+          <span class="persona-tag">Resilient</span>
+          <span class="persona-tag">Organized</span>
+          <span class="persona-tag">Hopeful</span>
+        </div>
+      </div>
+      <div class="persona-right">
+        <div class="persona-section">
+          <h5>Core Needs</h5>
+          <ul>
+            <li>Clearly see how donations are used and the impact they make</li>
+            <li>Fast, secure, easy donation process on both desktop and mobile</li>
+            <li>Thank-you messages that make her feel valued as part of the mission</li>
+          </ul>
+        </div>
+        <div class="persona-section">
+          <h5>Frustrations</h5>
+          <ul>
+            <li>Struggles if the donate button isn't obvious or takes too many steps</li>
+            <li>Feels disconnected when she doesn't hear how her donation helped</li>
+            <li>Gets frustrated if the form doesn't load well on mobile or payment options are limited</li>
+          </ul>
+        </div>
+        <div class="persona-quote">
+          "I just want to know that my donation is really making a difference for families who need it."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LO-FI -->
+<section class="section" style="background: var(--sand);">
+  <div class="section-inner">
+    <div class="section-label"><span>Lo-Fi Wireframes</span></div>
+    <h2>Starting loose to think clearly</h2>
+    <p>I began with hand-drawn wireframes to quickly explore layout concepts for the homepage and donation flow — without getting attached to visual details. The goal was to establish hierarchy and information architecture first.</p>
+
+    <div class="wireframe-note">
+      <strong>Lo-fi scope:</strong> Wireframes focused on two primary user flows — accessing food assistance information and completing a donation. Navigation structure, content blocks, and CTA placement were the primary design decisions at this stage.
+    </div>
+
+    <p>Lo-fi usability testing revealed that users needed clearer separation between "Get Help" and "Donate" paths, more prominent trust indicators, and larger, more accessible touch targets on mobile. These findings directly shaped the mid-fidelity structure.</p>
+
+    <ul class="findings-list">
+      <li class="finding-item">
+        <div class="finding-icon fi-high">!</div>
+        <div class="finding-text">
+          <strong>Navigation clarity needed improvement</strong>
+          <span>Users were unsure which path to take first — "Get Help" and "Donate" felt visually similar and equally weighted.</span>
+        </div>
+      </li>
+      <li class="finding-item">
+        <div class="finding-icon fi-high">!</div>
+        <div class="finding-text">
+          <strong>Donation flow lacked trust-building elements</strong>
+          <span>Users wanted impact statistics, volunteer photos, and mission reminders before committing to a donation.</span>
+        </div>
+      </li>
+      <li class="finding-item">
+        <div class="finding-icon fi-mid">~</div>
+        <div class="finding-text">
+          <strong>Mobile users relied entirely on large buttons</strong>
+          <span>Top navigation was frequently missed on mobile — users navigated via prominent content blocks and CTAs only.</span>
+        </div>
+      </li>
+      <li class="finding-item">
+        <div class="finding-icon fi-mid">~</div>
+        <div class="finding-text">
+          <strong>Interactive affordances were unclear</strong>
+          <span>Multiple users tapped on static elements they expected to be clickable — card designs needed clearer affordance signals.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- USER FLOW -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>User Flow</span></div>
+    <h2>Mapping the donation path end-to-end</h2>
+    <p>The user flow defined two parallel paths through the site — one for donors completing a contribution, and one for pantry visitors seeking assistance or appointments. The donation flow was the primary scope of this project.</p>
+
+    <div class="wireframe-note">
+      The donation path flows: <strong>Home → Donate Options → Donation Form → Form Validation → Confirmation → Impact Page → Exit.</strong> The error path (dashed red line) loops back from the form if submission fails, reducing drop-off by keeping users on track rather than returning them to the homepage.
+    </div>
+
+    <p>A secondary path handles walk-in visitors searching for pantry hours or food availability — an insight driven directly by research showing users frequently arrived without knowing what to expect.</p>
+  </div>
+</section>
+
+<!-- HI-FI -->
+<section class="section" style="background: var(--sand);">
+  <div class="section-inner">
+    <div class="section-label"><span>Hi-Fi Design</span></div>
+    <h2>A responsive design system built around trust and speed</h2>
+    <p>The hi-fi prototype translated lo-fi insights into a polished, responsive design. Key design decisions were grounded in research: the navy/green palette establishes authority and approachability, predefined donation tiers reduce decision fatigue, and the impact section was placed above the fold to build confidence before asking for a contribution.</p>
+
+    <div class="tools-row">
+      <span class="tool-pill">Navy #1a2744 — Authority & Trust</span>
+      <span class="tool-pill">Green #3a9e6e — Growth & Community</span>
+      <span class="tool-pill">Tiered Donation Amounts</span>
+      <span class="tool-pill">Impact Stats Above Fold</span>
+      <span class="tool-pill">Responsive Mobile Layout</span>
+    </div>
+
+    <p style="margin-top: 28px;">The prototype covered four core screens — Homepage, Impact Page, Donation Form, and Confirmation — each designed responsively for both desktop and mobile breakpoints.</p>
+  </div>
+</section>
+
+<!-- ITERATIONS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>Iterations</span></div>
+    <h2>Evidence-based revisions from hi-fi testing</h2>
+    <p>After hi-fi usability testing with 5 participants, I identified 5 priority changes. Iterations were ordered by severity of user impact — issues that caused task failures or confusion came before enhancements.</p>
+
+    <div class="iteration-list">
+      <div class="iter-item">
+        <div class="iter-num">1</div>
+        <div class="iter-content">
+          <strong>Improved recurring donation visibility</strong>
+          <p>2 of 5 users did not notice the recurring donation option. I increased its visual prominence and added supporting copy — "Make this a monthly donation" — to clarify its purpose and encourage opt-in.</p>
+        </div>
+      </div>
+      <div class="iter-item">
+        <div class="iter-num">2</div>
+        <div class="iter-content">
+          <strong>Optimized mobile form usability</strong>
+          <p>One user tapped the wrong input due to tight spacing on mobile. I increased spacing between form fields and improved touch target sizes to meet minimum accessibility standards.</p>
+        </div>
+      </div>
+      <div class="iter-item">
+        <div class="iter-num">3</div>
+        <div class="iter-content">
+          <strong>Added donation tier labels</strong>
+          <p>Some users hesitated before selecting a tier without guidance. I added contextual labels ("Most Popular," "Feeds a family for a week") to each amount to accelerate decision-making.</p>
+        </div>
+      </div>
+      <div class="iter-item">
+        <div class="iter-num">4</div>
+        <div class="iter-content">
+          <strong>Strengthened confirmation experience</strong>
+          <p>Users paused after submitting, unsure what came next. I redesigned the confirmation screen to include a clear receipt summary, impact reminder, and explicit next steps.</p>
+        </div>
+      </div>
+      <div class="iter-item">
+        <div class="iter-num">5</div>
+        <div class="iter-content">
+          <strong>Enhanced nav contrast (desktop)</strong>
+          <p>The navigation bar tested with low contrast in certain scroll states. I adjusted background opacity and increased type weight to maintain readability across all page contexts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="iteration-compare" style="margin-top: 36px;">
+      <div class="before-after ba-before">
+        <div class="ba-label">Before</div>
+        <div class="ba-content">Recurring donation toggle was small and below the main CTA — only 3 of 5 users noticed it. No explanatory copy. Easily missed on mobile scroll.</div>
+      </div>
+      <div class="before-after ba-after">
+        <div class="ba-label">After</div>
+        <div class="ba-content">Recurring option promoted with distinct visual styling, supporting label, and placement within the primary donation tier selection — visible without scrolling.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USABILITY RESULTS -->
+<section class="section" style="background: var(--sand);">
+  <div class="section-inner">
+    <div class="section-label"><span>Testing Results</span></div>
+    <h2>Validated usability with strong task completion</h2>
+    <p>Hi-fi usability testing was conducted remotely with 5 participants in moderated video sessions. Participants were given 4 scenarios — one-time donation, recurring donation, viewing impact, and mobile donation — all mapped to the primary persona's needs.</p>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-big good">92%</div>
+        <div class="result-label">overall task completion rate</div>
+      </div>
+      <div class="result-card">
+        <div class="result-big good">100%</div>
+        <div class="result-label">completed donation within time limit</div>
+      </div>
+      <div class="result-card">
+        <div class="result-big warn">60%</div>
+        <div class="result-label">encountered minor errors (misclicks, brief confusion)</div>
+      </div>
+      <div class="result-card">
+        <div class="result-big ok">0</div>
+        <div class="result-label">major errors — no task abandonment</div>
+      </div>
+    </div>
+
+    <ul class="findings-list" style="margin-top: 28px;">
+      <li class="finding-item">
+        <div class="finding-icon fi-low">✓</div>
+        <div class="finding-text">
+          <strong>Visual hierarchy effectively guided users</strong>
+          <span>All participants were immediately drawn to the Donate CTA — confirming the prominence and visual weight of the primary action worked as intended.</span>
+        </div>
+      </li>
+      <li class="finding-item">
+        <div class="finding-icon fi-low">✓</div>
+        <div class="finding-text">
+          <strong>Donation tiers reduced decision fatigue</strong>
+          <span>Most users immediately selected a predefined tier rather than entering a custom amount — exactly the behavior the design aimed for.</span>
+        </div>
+      </li>
+      <li class="finding-item">
+        <div class="finding-icon fi-low">✓</div>
+        <div class="finding-text">
+          <strong>Impact content built real trust</strong>
+          <span>Users spent more time on the impact section than expected — and reported feeling more confident and emotionally connected before donating.</span>
+        </div>
+      </li>
+      <li class="finding-item">
+        <div class="finding-icon fi-mid">~</div>
+        <div class="finding-text">
+          <strong>Payment flexibility was expected</strong>
+          <span>Some users hesitated briefly when only card payment was available. Adding PayPal and Apple Pay is flagged as a future consideration for the next sprint.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label"><span>Reflection</span></div>
+    <h2>What this project taught me about evidence-based design</h2>
+
+    <div class="reflection-quote">
+      <p>No matter how confident I felt about a design, usability testing consistently revealed gaps and opportunities for improvement. That humility — and the discipline to act on it — is what separates good design from assumed design.</p>
+      <cite>— Luis, Designer</cite>
+    </div>
+
+    <p>One of the biggest surprises was how often users overlooked the recurring donation option. I'd assumed it would be an obvious, attractive feature — but placement and visual weight mattered far more than I anticipated. The lesson: don't mistake "it's in the design" for "users will see it."</p>
+    <p>Balancing simplicity with completeness was the central tension throughout. The donation flow needed to be quick and frictionless — but also include enough impact content to build the trust that makes someone click "Submit." Finding that balance required constant reference back to the persona and real user behavior, not my own assumptions about what felt right.</p>
+    <p>Designing for responsiveness from the very beginning — not as an afterthought — also proved critical. Mobile users showed far less tolerance for friction, and small inconveniences that were easy to overlook on desktop caused genuine hesitation on a phone screen.</p>
+
+    <div class="learnings-grid">
+      <div class="learning-card">
+        <span class="learning-icon">🧪</span>
+        <h4>Test early, test twice</h4>
+        <p>Lo-fi testing caught structural issues before they were baked into a polished prototype — saving significant rework time.</p>
+      </div>
+      <div class="learning-card">
+        <span class="learning-icon">📱</span>
+        <h4>Design mobile-first in practice</h4>
+        <p>Mobile users were consistently less tolerant of friction. Designing for the constrained viewport first produced better solutions at both breakpoints.</p>
+      </div>
+      <div class="learning-card">
+        <span class="learning-icon">👁</span>
+        <h4>Visibility ≠ presence</h4>
+        <p>The recurring donation finding — a feature present but unseen — reinforced that placement, weight, and contrast are as important as content.</p>
+      </div>
+      <div class="learning-card">
+        <span class="learning-icon">🎯</span>
+        <h4>Stay anchored to the persona</h4>
+        <p>Every design decision was filtered through Maria's needs. That consistent reference point prevented scope creep and kept priorities clear.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<section class="section" style="background: var(--sand);">
+  <div class="section-inner">
+    <div class="section-label"><span>Next Steps</span></div>
+    <h2>Where this design goes from here</h2>
+    <p>This project addressed the donor-facing experience. The next phase — already in scope — would shift focus to the administrative side: a responsive dashboard for Extended Hands Pantry staff to manage donations, track volunteer activity, and plan events without a separate tool download.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card" style="border-left-color: var(--green);">
+        <h4>Add payment flexibility</h4>
+        <p>Integrate PayPal and Apple Pay to reduce hesitation at checkout — the most commonly cited enhancement from usability testing.</p>
+      </div>
+      <div class="problem-card" style="border-left-color: var(--green);">
+        <h4>Admin dashboard (Phase 2)</h4>
+        <p>Design a responsive internal dashboard for donation tracking, volunteer management, and event coordination — the logical next layer of this system.</p>
+      </div>
+      <div class="problem-card" style="border-left-color: var(--green);">
+        <h4>Multi-channel communication</h4>
+        <p>Extend the design to support SMS notifications, Google listing updates, and printable materials — bridging digital and in-person pantry touchpoints.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="section">
+  <div class="section-inner" style="text-align: center;">
+    <div class="section-label" style="justify-content: center;"><span>Tools & Methods</span></div>
+    <h2>How this project was built</h2>
+    <hr class="divider">
+
+    <div class="tools-row">
+      <span class="tool-pill">Figma</span>
+      <span class="tool-pill">Otter.ai (transcription)</span>
+      <span class="tool-pill">In-person interviews</span>
+      <span class="tool-pill">Remote moderated testing</span>
+      <span class="tool-pill">Affinity mapping</span>
+      <span class="tool-pill">User flows</span>
+      <span class="tool-pill">Lo-fi wireframing</span>
+      <span class="tool-pill">Hi-fi prototyping</span>
+      <span class="tool-pill">Responsive design</span>
+      <span class="tool-pill">Persona development</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<footer class="footer-cta">
+  <h2>Want to see the full prototype?</h2>
+  <p>View the interactive Figma file or get in touch to discuss the project in detail.</p>
+  <a href="#" class="cta-btn">View Prototype in Figma →</a>
+</footer>
+
+</body>
+</html>
